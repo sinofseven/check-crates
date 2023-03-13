@@ -79,20 +79,16 @@ fn set_padding(t: &str, s: usize) -> String {
 
 fn show_columns(length: &Length) {
     println!(
-        "{}  {}  {}  {}  {}  {}",
+        "{}{}  {}  {}",
         ROOT_PADDING,
-        set_padding("id", length.id),
         set_padding("name", length.name),
-        set_padding("max_version", length.max_version),
         set_padding("max_stable_version", length.max_stable_version),
         set_padding("updated_at", length.updated_at)
     );
     println!(
-        "{}  {}  {}  {}  {}  {}",
+        "{}{}  {}  {}",
         ROOT_PADDING,
-        "=".repeat(length.id),
         "=".repeat(length.name),
-        "=".repeat(length.max_version),
         "=".repeat(length.max_stable_version),
         "=".repeat(length.updated_at)
     );
@@ -104,11 +100,9 @@ fn show_crate(c: &Crate, length: &Length) {
         None => "".to_string(),
     };
     println!(
-        "{}  {}  {}  {}  {}  {}",
+        "{}{}  {}  {}",
         ROOT_PADDING,
-        set_padding(&c.id, length.id),
         set_padding(&c.name, length.name),
-        set_padding(&c.max_version, length.max_version),
         set_padding(&max_stable_version, length.max_stable_version),
         set_padding(&c.updated_at, length.updated_at)
     );
