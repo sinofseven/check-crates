@@ -1,5 +1,6 @@
 use serde::Deserialize;
 use std::collections::HashMap;
+use chrono::{DateTime, Utc};
 
 #[derive(Debug, Clone, Deserialize)]
 pub struct Crate {
@@ -18,8 +19,8 @@ pub struct Crate {
     pub max_version: String,
     pub max_stable_version: Option<String>,
     pub links: HashMap<String, String>,
-    pub created_at: String,
-    pub updated_at: String,
+    pub created_at: DateTime<Utc>,
+    pub updated_at: DateTime<Utc>,
     pub exact_match: Option<bool>,
 }
 

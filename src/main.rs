@@ -55,20 +55,18 @@ fn parse_length(crates: &Vec<Crate>) -> Length {
         .filter(|v| v.is_some())
         .map(|v| v.clone().unwrap().len())
         .collect();
-    let mut list_updated_at: Vec<usize> = crates.iter().map(|c| c.updated_at.len()).collect();
 
     list_id.push("id".len());
     list_name.push("name".len());
     list_max_version.push("max_version".len());
     list_max_stable_version.push("max_stable_version".len());
-    list_updated_at.push("updated_at".len());
 
     Length {
         id: list_id.iter().max().unwrap().clone(),
         name: list_name.iter().max().unwrap().clone(),
         max_version: list_max_version.iter().max().unwrap().clone(),
         max_stable_version: list_max_stable_version.iter().max().unwrap().clone(),
-        updated_at: list_updated_at.iter().max().unwrap().clone(),
+        updated_at: 10,
     }
 }
 
@@ -79,16 +77,18 @@ fn set_padding(t: &str, s: usize) -> String {
 
 fn show_columns(length: &Length) {
     println!(
-        "{}{}  {}  {}",
+        "{}{}  {}  {}  {}",
         ROOT_PADDING,
         set_padding("name", length.name),
+        set_padding("max_version", length.max_version),
         set_padding("max_stable_version", length.max_stable_version),
         set_padding("updated_at", length.updated_at)
     );
     println!(
-        "{}{}  {}  {}",
+        "{}{}  {}  {}  {}",
         ROOT_PADDING,
         "=".repeat(length.name),
+        "=".repeat(length.max_version),
         "=".repeat(length.max_stable_version),
         "=".repeat(length.updated_at)
     );
@@ -99,11 +99,13 @@ fn show_crate(c: &Crate, length: &Length) {
         Some(t) => t.clone(),
         None => "".to_string(),
     };
+    let updated_at = c.updated_at.format("%Y-%m-%d").to_string();
     println!(
-        "{}{}  {}  {}",
+        "{}{}  {}  {}  {}",
         ROOT_PADDING,
         set_padding(&c.name, length.name),
+        set_padding(&c.max_version, length.max_version),
         set_padding(&max_stable_version, length.max_stable_version),
-        set_padding(&c.updated_at, length.updated_at)
+        set_padding(&updated_at, length.updated_at)
     );
 }
